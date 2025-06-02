@@ -1,61 +1,159 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# Sankalpa - Gamified Productivity App
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+A Laravel-based gamified productivity application built with Filament PHP for goal tracking and task management.
 
-## About Laravel
+## 🎯 Features
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+- **Goal Management**: Create and track long-term goals with difficulty levels
+- **Milestone Tracking**: Break down big goals into manageable milestones
+- **Task Management**: Create, assign, and complete tasks with point rewards
+- **Gamification**: Earn points for completing tasks and track progress
+- **Dashboard Analytics**: Real-time progress tracking and statistics
+- **Point System**: Track achievements with a comprehensive point transaction system
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+## 🚀 Quick Start
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+### Prerequisites
+- PHP 8.3+
+- Laravel 12
+- SQLite/MySQL database
 
-## Learning Laravel
+### Installation
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+1. **Clone the repository**
+   ```bash
+   git clone <repository-url>
+   cd sankalpa
+   ```
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+2. **Install dependencies**
+   ```bash
+   composer install
+   npm install
+   ```
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+3. **Environment setup**
+   ```bash
+   cp .env.example .env
+   php artisan key:generate
+   ```
 
-## Laravel Sponsors
+4. **Database setup**
+   ```bash
+   php artisan migrate
+   php artisan db:seed --class=SampleDataSeeder
+   php artisan db:seed --class=AdminUserSeeder
+   ```
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+5. **Start the development server**
+   ```bash
+   php artisan serve
+   npm run dev
+   ```
 
-### Premium Partners
+## 🔑 Access
 
-- **[Vehikl](https://vehikl.com)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Redberry](https://redberry.international/laravel-development)**
-- **[Active Logic](https://activelogic.com)**
+### Admin Panel (Filament)
+- URL: `http://localhost:8000/admin`
+- Email: `admin@sankalpa.app`
+- Password: `admin123`
 
-## Contributing
+### Test User
+- Email: `test@example.com`
+- Password: `password`
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+## 📱 Dashboard Features
 
-## Code of Conduct
+The custom dashboard widget shows:
+- **Today's pending task** - Shows the most urgent task due today
+- **Current streak** - Track consecutive days of task completion
+- **Weekly points** - Points earned in the current week
+- **Goal progress** - Completion percentage of the active goal
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+## 🎯 Models & Relationships
 
-## Security Vulnerabilities
+### Core Models
+- **Goal**: Main objectives with start/end dates and difficulty levels
+- **Milestone**: Optional sub-goals for breaking down large objectives
+- **Task**: Individual actionable items with point values
+- **TaskCompletion**: Tracks when tasks are completed
+- **PointTransaction**: Records all point-related activities
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+### Relationships
+- Goals → Milestones (1:many)
+- Goals → Tasks (1:many)
+- Milestones → Tasks (1:many)
+- Tasks → TaskCompletion (1:1)
+- Users → Goals, Tasks, PointTransactions (1:many)
 
-## License
+## 🛠 Technical Stack
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+- **Backend**: Laravel 12
+- **Admin Panel**: Filament PHP 3.3
+- **Database**: SQLite (configurable)
+- **Frontend**: Livewire (via Filament)
+- **Styling**: Tailwind CSS (via Filament)
+
+## 📊 Point System
+
+Points are automatically awarded for:
+- **Task Completion**: Variable points based on task complexity
+- **Streaks**: Bonus points for consecutive completions
+- **Bonuses**: Manual bonus points for achievements
+- **Penalties**: Deductions for missed deadlines (configurable)
+
+## 🎮 Gamification Elements
+
+- **Difficulty Levels**: Easy, Medium, Hard goals
+- **Point Rewards**: Configurable points per task
+- **Progress Tracking**: Visual progress bars and percentages
+- **Achievement System**: Point transactions track all activities
+- **Weekly Analytics**: Track weekly task completion and points
+
+## 📈 Sample Data
+
+The app includes sample data featuring:
+- YouTube Channel Launch goal with milestones and tasks
+- Laravel Learning goal with technical tasks
+- Point transactions showing various earning scenarios
+- Realistic task scheduling with due dates
+
+## 🔧 Customization
+
+### Adding New Point Sources
+Edit the `PointTransaction` model enum:
+```php
+'source' => ['task_completion', 'bonus', 'streak', 'penalty', 'your_new_source']
+```
+
+### Modifying Dashboard Widgets
+Update `app/Filament/Widgets/TaskProgressWidget.php` to customize the dashboard cards.
+
+### Custom Goal Types
+Extend the difficulty levels in the Goal model and migration.
+
+## 📝 Future Enhancements
+
+- [ ] Team collaboration features
+- [ ] Mobile app with notifications
+- [ ] Advanced analytics and reporting
+- [ ] Social features and leaderboards
+- [ ] Integration with external productivity tools
+- [ ] Custom achievement badges
+- [ ] Time tracking for tasks
+- [ ] Recurring tasks and habits
+
+## 🤝 Contributing
+
+1. Fork the repository
+2. Create a feature branch
+3. Make your changes
+4. Submit a pull request
+
+## 📜 License
+
+This project is open-sourced software licensed under the [MIT license](LICENSE).
+
+---
+
+**Sankalpa** (Sanskrit: संकल्प) means "intention" or "resolve" - helping you turn your intentions into achievements! 🎯
