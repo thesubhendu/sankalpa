@@ -19,7 +19,9 @@ class GoalResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-o-flag';
 
-    protected static ?string $navigationGroup = 'Goal Management';
+    protected static ?string $navigationGroup = 'Planning';
+
+    protected static ?int $navigationSort = 4;
 
     public static function form(Form $form): Form
     {
@@ -102,6 +104,7 @@ class GoalResource extends Resource
                     ->label('Active Goals'),
             ])
             ->actions([
+                Tables\Actions\ViewAction::make(),
                 Tables\Actions\EditAction::make(),
             ])
             ->bulkActions([
@@ -123,6 +126,7 @@ class GoalResource extends Resource
         return [
             'index' => Pages\ListGoals::route('/'),
             'create' => Pages\CreateGoal::route('/create'),
+            'view' => Pages\ViewGoal::route('/{record}'),
             'edit' => Pages\EditGoal::route('/{record}/edit'),
         ];
     }

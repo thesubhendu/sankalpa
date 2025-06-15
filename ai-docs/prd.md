@@ -20,8 +20,8 @@ Please generate the MVP backend structure with Eloquent models, migrations, poli
 - **TaskCompletion**
   - id, task_id, completed_at, notes (optional)
 
-- **PointTransaction**
-  - id, user_id, source (enum: task_completion, bonus, streak, penalty), amount, description, created_at
+- **UserPoints**
+  - id, user_id, total_points, weekly_points, last_reset_date
 
 ---
 

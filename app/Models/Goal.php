@@ -31,14 +31,14 @@ class Goal extends Model
         return $this->belongsTo(User::class);
     }
 
-    public function milestones(): HasMany
-    {
-        return $this->hasMany(Milestone::class);
-    }
-
     public function tasks(): HasMany
     {
         return $this->hasMany(Task::class);
+    }
+
+    public function weeklyGoals(): HasMany
+    {
+        return $this->hasMany(WeeklyGoal::class);
     }
 
     public function getCompletionPercentageAttribute(): float
@@ -67,4 +67,6 @@ class Goal extends Model
         $now = now();
         return $this->start_date <= $now && $this->end_date >= $now;
     }
+
+
 } 

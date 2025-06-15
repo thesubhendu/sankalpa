@@ -8,7 +8,7 @@ use App\Models\User;
 use App\Models\Goal;
 use App\Models\Milestone;
 use App\Models\Task;
-use App\Models\PointTransaction;
+
 
 class SampleDataSeeder extends Seeder
 {
@@ -101,34 +101,10 @@ class SampleDataSeeder extends Seeder
                 ...$taskData
             ]);
 
-            // Create point transaction for completed tasks
-            if ($task->status === 'done') {
-                PointTransaction::create([
-                    'user_id' => $user->id,
-                    'source' => 'task_completion',
-                    'amount' => $task->points,
-                    'description' => "Completed task: {$task->title}",
-                    'created_at' => now()->subDays(rand(1, 6)),
-                ]);
-            }
+
         }
 
-        // Create some additional point transactions
-        PointTransaction::create([
-            'user_id' => $user->id,
-            'source' => 'bonus',
-            'amount' => 25,
-            'description' => 'Weekly streak bonus',
-            'created_at' => now()->subDays(2),
-        ]);
 
-        PointTransaction::create([
-            'user_id' => $user->id,
-            'source' => 'streak',
-            'amount' => 10,
-            'description' => '3-day completion streak',
-            'created_at' => now()->subDays(1),
-        ]);
 
         // Create another goal for variety
         $goal2 = Goal::create([
@@ -161,13 +137,6 @@ class SampleDataSeeder extends Seeder
             'points' => 60,
         ]);
 
-        // Point transaction for the completed Laravel task
-        PointTransaction::create([
-            'user_id' => $user->id,
-            'source' => 'task_completion',
-            'amount' => 60,
-            'description' => 'Completed task: Build API with Laravel',
-            'created_at' => now()->subDays(2),
-        ]);
+
     }
 }

@@ -11,13 +11,15 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('point_transactions', function (Blueprint $table) {
+        Schema::create('user_points', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id')->constrained()->onDelete('cascade');
-            $table->enum('source', ['task_completion', 'bonus', 'streak', 'penalty']);
-            $table->integer('amount');
-            $table->string('description');
+            $table->integer('total_points')->default(0);
+            $table->integer('weekly_points')->default(0);
+            $table->date('last_reset_date')->nullable(); // For weekly reset tracking
             $table->timestamps();
+            
+            $table->unique('user_id'); // One record per user
         });
     }
 
@@ -26,6 +28,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('point_transactions');
+        Schema::dropIfExists('user_points');
     }
 };

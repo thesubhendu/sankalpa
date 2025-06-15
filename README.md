@@ -77,14 +77,12 @@ The custom dashboard widget shows:
 - **Milestone**: Optional sub-goals for breaking down large objectives
 - **Task**: Individual actionable items with point values
 - **TaskCompletion**: Tracks when tasks are completed
-- **PointTransaction**: Records all point-related activities
-
 ### Relationships
 - Goals → Milestones (1:many)
 - Goals → Tasks (1:many)
 - Milestones → Tasks (1:many)
 - Tasks → TaskCompletion (1:1)
-- Users → Goals, Tasks, PointTransactions (1:many)
+- Users → Goals, Tasks, UserPoints (1:many)
 
 ## 🛠 Technical Stack
 
@@ -107,7 +105,7 @@ Points are automatically awarded for:
 - **Difficulty Levels**: Easy, Medium, Hard goals
 - **Point Rewards**: Configurable points per task
 - **Progress Tracking**: Visual progress bars and percentages
-- **Achievement System**: Point transactions track all activities
+- **Achievement System**: UserPoints track total and weekly points
 - **Weekly Analytics**: Track weekly task completion and points
 
 ## 📈 Sample Data
@@ -120,11 +118,8 @@ The app includes sample data featuring:
 
 ## 🔧 Customization
 
-### Adding New Point Sources
-Edit the `PointTransaction` model enum:
-```php
-'source' => ['task_completion', 'bonus', 'streak', 'penalty', 'your_new_source']
-```
+### Customizing Point Values
+Modify task point values in the Task model or adjust the UserPoints calculation logic in the `addPoints` method.
 
 ### Modifying Dashboard Widgets
 Update `app/Filament/Widgets/TaskProgressWidget.php` to customize the dashboard cards.
