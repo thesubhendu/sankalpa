@@ -2,9 +2,6 @@
 
 namespace App\Filament\Widgets;
 
-use App\Models\User;
-use App\Models\Task;
-use App\Models\Goal;
 use App\Services\GoalProgressService;
 use Filament\Widgets\StatsOverviewWidget as BaseWidget;
 use Filament\Widgets\StatsOverviewWidget\Stat;
@@ -14,7 +11,6 @@ class TaskProgressWidget extends BaseWidget
     protected function getStats(): array
     {
         $user = auth()->user();
-        $goalProgressService = new GoalProgressService();
         
         // Today's pending task
         $todaysTask = $user->todaysPendingTask;
@@ -37,26 +33,11 @@ class TaskProgressWidget extends BaseWidget
             ->descriptionIcon('heroicon-m-check-badge')
             ->color($weeklyStats['completed'] > 0 ? 'success' : 'gray');
 
-        // Active goal progress
-        $activeGoal = $user->activeGoal;
-        if ($activeGoal) {
-            $goalStats = $goalProgressService->getGoalStats($activeGoal);
-            $goalProgressStat = Stat::make('Current Goal Progress', $goalStats['completion_percentage'] . '%')
-                ->description($activeGoal->title)
-                ->descriptionIcon('heroicon-m-flag')
-                ->color($goalStats['completion_percentage'] > 50 ? 'success' : 'warning');
-        } else {
-            $goalProgressStat = Stat::make('Current Goal', 'No active goal')
-                ->description('Create a goal to get started!')
-                ->descriptionIcon('heroicon-m-plus-circle')
-                ->color('gray');
-        }
 
         return [
             $todaysTaskStat,
             $weeklyPointsStat,
             $weeklyTasksStat,
-            $goalProgressStat,
         ];
     }
 }

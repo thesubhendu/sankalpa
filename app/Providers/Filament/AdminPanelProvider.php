@@ -45,7 +45,6 @@ class AdminPanelProvider extends PanelProvider
             ])
             ->navigationGroups([
                 NavigationGroup::make('Planning'),
-                NavigationGroup::make('Management'),
             ])
             ->middleware([
                 EncryptCookies::class,

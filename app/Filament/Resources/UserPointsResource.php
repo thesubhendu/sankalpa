@@ -23,7 +23,6 @@ class UserPointsResource extends Resource
 
     protected static ?string $navigationLabel = 'Points';
 
-    protected static ?string $navigationGroup = 'Management';
 
     protected static ?int $navigationSort = 3;
 
