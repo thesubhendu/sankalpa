@@ -19,7 +19,7 @@ class GoalResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-o-flag';
 
-    protected static ?string $navigationGroup = 'Planning';
+    // protected static ?string $navigationGroup = 'Planning';
 
     protected static ?int $navigationSort = 4;
 

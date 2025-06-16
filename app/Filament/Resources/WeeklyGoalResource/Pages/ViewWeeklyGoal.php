@@ -55,9 +55,9 @@ class ViewWeeklyGoal extends ViewRecord
                             ]),
                     ]),
 
-                Section::make('Progress')
+                Section::make('Progress Overview')
                     ->schema([
-                        Grid::make(3)
+                        Grid::make(4)
                             ->schema([
                                 TextEntry::make('tasks_count')
                                     ->label('Total Tasks')
@@ -71,6 +71,12 @@ class ViewWeeklyGoal extends ViewRecord
                                     ->badge()
                                     ->color('success'),
                                 
+                                TextEntry::make('in_progress_tasks')
+                                    ->label('In Progress')
+                                    ->getStateUsing(fn ($record) => $record->tasks()->where('status', 'in_progress')->count())
+                                    ->badge()
+                                    ->color('warning'),
+                                
                                 TextEntry::make('completion_percentage')
                                     ->label('Progress')
                                     ->formatStateUsing(fn ($record) => $record->completion_percentage . '%')
@@ -79,6 +85,72 @@ class ViewWeeklyGoal extends ViewRecord
                                         $record->completion_percentage >= 80 => 'success',
                                         $record->completion_percentage >= 50 => 'warning',
                                         default => 'gray',
+                                    }),
+                            ]),
+
+                        Grid::make(3)
+                            ->schema([
+                                TextEntry::make('points_earned')
+                                    ->label('Points Earned')
+                                    ->getStateUsing(fn ($record) => $record->tasks()->where('status', 'done')->sum('points'))
+                                    ->badge()
+                                    ->color('success'),
+                                
+                                TextEntry::make('total_points')
+                                    ->label('Total Points')
+                                    ->badge()
+                                    ->color('info'),
+                                
+                                TextEntry::make('point_efficiency')
+                                    ->label('Point Efficiency')
+                                    ->getStateUsing(function ($record) {
+                                        $total = $record->total_points;
+                                        $earned = $record->tasks()->where('status', 'done')->sum('points');
+                                        return $total > 0 ? round(($earned / $total) * 100) . '%' : '0%';
+                                    })
+                                    ->badge()
+                                    ->color(function ($record) {
+                                        $total = $record->total_points;
+                                        $earned = $record->tasks()->where('status', 'done')->sum('points');
+                                        $efficiency = $total > 0 ? ($earned / $total) * 100 : 0;
+                                        return match (true) {
+                                            $efficiency >= 80 => 'success',
+                                            $efficiency >= 60 => 'warning',
+                                            default => 'gray',
+                                        };
+                                    }),
+                            ]),
+                    ]),
+
+                Section::make('Task Breakdown')
+                    ->schema([
+                        Grid::make(3)
+                            ->schema([
+                                TextEntry::make('energy_breakdown')
+                                    ->label('Energy Levels')
+                                    ->getStateUsing(function ($record) {
+                                        $high = $record->tasks()->where('energy_level', 'high')->count();
+                                        $medium = $record->tasks()->where('energy_level', 'medium')->count();
+                                        $low = $record->tasks()->where('energy_level', 'low')->count();
+                                        return "🔥 {$high} • ⚡ {$medium} • 🌱 {$low}";
+                                    }),
+                                
+                                TextEntry::make('priority_breakdown')
+                                    ->label('Priorities')
+                                    ->getStateUsing(function ($record) {
+                                        $high = $record->tasks()->where('priority', 3)->count();
+                                        $medium = $record->tasks()->where('priority', 2)->count();
+                                        $low = $record->tasks()->where('priority', 1)->count();
+                                        return "🔴 {$high} • 🟡 {$medium} • 🟢 {$low}";
+                                    }),
+                                
+                                TextEntry::make('due_today')
+                                    ->label('Due Today')
+                                    ->getStateUsing(fn ($record) => $record->tasks()->whereDate('due_date', today())->count())
+                                    ->badge()
+                                    ->color(function ($record) {
+                                        $count = $record->tasks()->whereDate('due_date', today())->count();
+                                        return $count > 0 ? 'warning' : 'gray';
                                     }),
                             ]),
                     ]),

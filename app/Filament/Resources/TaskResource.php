@@ -25,7 +25,7 @@ class TaskResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-o-check-circle';
 
-    protected static ?string $navigationGroup = 'Planning';
+    // protected static ?string $navigationGroup = 'Planning';
 
     protected static ?int $navigationSort = 2;
 
