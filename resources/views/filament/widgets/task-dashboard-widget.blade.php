@@ -59,14 +59,14 @@
                                 <div class="space-y-3">
                                     <x-filament::button 
                                         wire:click="startTask({{ $recommendedTask->id }})"
-                                        color="warning"
-                                        size="lg"
+                                        color="primary"
+                                        size="sm"
                                         class="justify-center">
                                         Start This Task
                                     </x-filament::button>
                                     <x-filament::button 
                                         wire:click="setEnergyLevel(null)"
-                                        color="gray"
+                                        color="info"
                                         variant="outlined"
                                         size="sm"
                                         class=" justify-center">
