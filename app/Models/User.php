@@ -70,6 +70,11 @@ class User extends Authenticatable
         return $this->hasOne(UserPoints::class);
     }
 
+    public function introspectionJournals(): HasMany
+    {
+        return $this->hasMany(IntrospectionJournal::class);
+    }
+
     // Energy Level Methods
     public function updateEnergyLevel(string $energyLevel): void
     {
