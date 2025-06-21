@@ -60,11 +60,7 @@ class ProblemSolvingSessionResource extends Resource
                             ->rows(4)
                             ->placeholder('Describe the problem you want to solve in detail...'),
                         
-                        Select::make('user_id')
-                            ->relationship('user', 'name')
-                            ->required()
-                            ->default(auth()->id())
-                            ->hidden(),
+
                     ]),
 
                 Section::make('Problem Analysis - SHERLOCK HOLMES Method')

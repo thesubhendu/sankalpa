@@ -3,9 +3,11 @@
 namespace Database\Seeders;
 
 use App\Models\User;
-use Illuminate\Support\Facades\Hash;
-// use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+// use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use Illuminate\Support\Facades\Hash;
+use Database\Seeders\IntrospectionJournalSeeder;
+use Database\Seeders\ProblemSolvingSessionSeeder;
 
 class DatabaseSeeder extends Seeder
 {
@@ -26,6 +28,11 @@ class DatabaseSeeder extends Seeder
             'name' => 'Admin',
             'email' => 'admin@sankalpa.test',
             'password' => Hash::make('Qaxje1-tosfog-tyvguk'),
+        ]);
+
+        $this->call([
+            ProblemSolvingSessionSeeder::class,
+            IntrospectionJournalSeeder::class,
         ]);
     }
 }
